@@ -14,13 +14,13 @@ pipeline{
         string(defaultValue: "34.70.247.71", description: 'private ip of the server ', name: 'gcp-dev')
 }
   
-
+stages{
  stage('build'){
             steps{
                sh 'mvn clean install'
             }
             }
-            
+         }   
      }
     
    
