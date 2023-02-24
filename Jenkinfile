@@ -8,7 +8,7 @@ pipeline{
     environment {
         CREDENTIALS_ID ='o-media-2'
         BUCKET = 'gcp-dev12'
-        PATTERN = '**/.jar'
+        PATTERN = '.jar'
     }
 
     stages{
