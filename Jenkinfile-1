@@ -1,0 +1,31 @@
+pipeline{
+    agent any
+
+    tools {
+         maven 'maven'
+         jdk 'java'
+    }
+    environment {
+        CREDENTIALS_ID ='o-media-2'
+        BUCKET = 'gcp-dev12'
+        PATTERN = '**/target/*.jar'
+    }
+      parameters {
+        string(defaultValue: "34.70.247.71", description: 'private ip of the server ', name: 'gcp-dev')
+}
+  
+
+ stage('build'){
+            steps{
+               sh 'mvn clean install'
+            }
+            }
+            
+ 
+ 
+       
+      }
+    }
+   
+
+
