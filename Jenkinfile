@@ -26,7 +26,7 @@ pipeline{
         stage('Store to GCS') {
             steps{
                 sh '''
-                    env > /var/lib/jenkins/workspace/hello-world-test/target/maigolab_hello-1.0.0.jar
+                    env > /var/lib/jenkins/workspace/storage-upload-arti/target/maigolab_hello-1.0.0.jar
                 '''
                 // If we name pattern build_environment.txt, this will upload the local file to our GCS bucket.
                 step([$class: 'ClassicUploadStep', credentialsId: env
