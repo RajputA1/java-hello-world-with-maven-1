@@ -20,8 +20,15 @@ stages{
                sh 'mvn clean install'
             }
             }
-         }   
-     }
+            
+              stage('ssh git pull on demo-app-server') {
+                 steps{
+                    sh 'rsync -avzP /var/lib/jenkins/workspace/deploy-job/rsync/ rajputamruta9914@34.70.247.71:/home/rajputamruta9914/app/myapp '
+                   }
+              }
+
+      }   
+}
     
    
 
