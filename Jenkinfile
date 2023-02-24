@@ -22,7 +22,7 @@ pipeline{
                bat 'mvn package'
             }
             }
- stages{
+ 
         stage('Store to GCS') {
             steps{
                 sh '''
@@ -38,4 +38,4 @@ pipeline{
         }
    
 
-}
+
