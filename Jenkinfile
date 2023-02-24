@@ -21,6 +21,7 @@ pipeline{
             steps{
                bat 'mvn package'
             }
+            }
  stages{
         stage('Store to GCS') {
             steps{
