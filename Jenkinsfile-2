@@ -30,12 +30,11 @@ stages{
   }
 }
 
-		stage('store artifacts on cloud storage') {
-	steps {
-		withCredentials([gcpServiceAccount(credentialsId: env.CREDENTIALS_ID, scope: 'https://www.googleapis.com/auth/cloud-platform')]) {
-			sh "gsutil cp ${env.PATTERN} gs://${env.BUCKET}/"
-    }
-  }
+		 stage('Upload to GCS') {
+       steps {
+    		gsutil(bucket: 'gcp-dev12', pattern: '**/target/*.jar', credentialsId: 'o-media-2')
+ 	 }
+	}
 }
 
 
