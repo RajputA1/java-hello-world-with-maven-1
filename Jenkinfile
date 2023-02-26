@@ -5,11 +5,11 @@ pipeline{
          maven 'maven'
          jdk 'java'
     }
-    environment {
-        CREDENTIALS_ID ='o-media-2'
-        BUCKET = 'gcp-dev12'
-        PATTERN = '**/target/*.jar'
-    }
+    //environment {
+        //CREDENTIALS_ID ='o-media-2'
+        //BUCKET = 'gcp-dev12'
+        //PATTERN = '**/target/*.jar'
+   // }
 
     stages{
       //  stage('checkout'){
@@ -29,11 +29,17 @@ pipeline{
                     env > /var/lib/jenkins/workspace/storage-upload-arti/target/maigolab_hello-1.0.0.jar
                 '''
                 // If we name pattern build_environment.txt, this will upload the local file to our GCS bucket.
-                step([$class: 'ClassicUploadStep', credentialsId: env
-                        .CREDENTIALS_ID,  bucket: "gs://${env.BUCKET}",
-                      pattern: env.PATTERN])
+                //step([$class: 'ClassicUploadStep', credentialsId: env
+                        //.CREDENTIALS_ID,  bucket: "gs://${env.BUCKET}",
+                      //pattern: env.PATTERN])
                }
            }
+          stage('Upload to GCS') {
+  steps {
+    gsutil(bucket: 'gcp-dev12', pattern: '**/target/*.jar', credentialsId: 'o-media-2')
+  }
+}
+
            }
         }
    
