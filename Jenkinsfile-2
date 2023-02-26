@@ -25,7 +25,7 @@ stages{
   		steps{
    		 sh 'rsync -avzP /var/lib/jenkins/workspace/deploy-job-arti  rajputamruta9914@34.30.37.42:/home/rajputamruta9914/amruta'
    	 	sshagent(['o-media-2']) {
-     	 sh "ssh rajputamruta9914@${params.gcp-dev} 'nohup java -jar /home/rajputamruta9914/amruta/*.jar > /mnt/my-artifacts 2>&1 &'"
+     	 sh "ssh rajputamruta9914@${params.gcp-dev} 'nohup java -jar /home/rajputamruta9914/amruta/deploy-job-arti/target/*.jar > /mnt/my-artifacts 2>&1 &'"
     }
   }
 }
