@@ -1,0 +1,43 @@
+pipeline{
+    agent any
+
+    tools {
+         maven 'maven'
+         jdk 'java'
+    }
+    environment {
+        CREDENTIALS_ID ='o-media-2'
+        BUCKET = 'gcp-dev12'
+        PATTERN = '**/target/*.jar'
+    }
+      parameters {
+        string(defaultValue: "34.30.37.42", description: 'private ip of the server ', name: 'gcp-dev')
+}
+  
+stages{
+		stage('build'){
+            steps{
+               sh 'mvn clean install'
+            }
+            }
+            
+		stage('ssh git pull on demo-app-server') {
+                 steps{
+                    sh 'rsync -avzP /var/lib/jenkins/workspace/deploy-job/ rajputamruta9914@34.30.37.42:/home/rajputamruta9914/app/myapp'
+                   }
+              }
+		stage('store artifacts on cloud storage') {
+	steps {
+		withCredentials([gcpServiceAccount(credentialsId: env.CREDENTIALS_ID, scope: 'https://www.googleapis.com/auth/cloud-platform')]) {
+			sh "gsutil cp ${env.PATTERN} gs://${env.BUCKET}/"
+    }
+  }
+}
+
+
+
+      }   
+}
+    
+   
+
