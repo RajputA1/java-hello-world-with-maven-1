@@ -24,17 +24,13 @@ stages{
 	      stage('ssh git pull on demo-app-server') {
   		steps{
    		 sh 'rsync -avzP /var/lib/jenkins/workspace/deploy-job-arti  rajputamruta9914@34.30.37.42:/home/rajputamruta9914/amruta'
-   	 	//sshagent(['o-media-2']) {
-     	 //sh "ssh rajputamruta9914@${params.gcp-dev} 'nohup java -jar /home/rajputamruta9914/app/myapp/*.jar > /mnt/my-artifacts 2>&1 &'"
-    //}
+   	 	sshagent(['o-media-2']) {
+     	 sh "ssh rajputamruta9914@${params.gcp-dev} 'nohup java -jar /home/rajputamruta9914/app/myapp/*.jar > /mnt/my-artifacts 2>&1 &'"
+    }
   }
 }
 
-		 stage('Upload to GCS') {
-       steps {
-    		gsutil(bucket: 'gcp-dev12', pattern: '**/target/*.jar', credentialsId: 'o-media-2')
- 	 }
-	}
+		 
 }
 
 
