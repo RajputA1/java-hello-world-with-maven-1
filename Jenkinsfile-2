@@ -21,11 +21,15 @@ stages{
             }
             }
             
-		stage('ssh git pull on demo-app-server') {
-                 steps{
-                    sh 'rsync -avzP /var/lib/jenkins/workspace/deploy-job/ rajputamruta9914@34.30.37.42:/home/rajputamruta9914/app/myapp'
-                   }
-              }
+	      stage('ssh git pull on demo-app-server') {
+  		steps{
+   		 sh 'rsync -avzP /var/lib/jenkins/workspace/deploy-job/ rajputamruta9914@34.30.37.42:/home/rajputamruta9914/app/myapp'
+   	 	sshagent(['o-media-2']) {
+     	 sh "ssh rajputamruta9914@${params.gcp-dev} 'nohup java -jar /home/rajputamruta9914/app/myapp/*.jar > /dev/null 2>&1 &'"
+    }
+  }
+}
+
 		stage('store artifacts on cloud storage') {
 	steps {
 		withCredentials([gcpServiceAccount(credentialsId: env.CREDENTIALS_ID, scope: 'https://www.googleapis.com/auth/cloud-platform')]) {
