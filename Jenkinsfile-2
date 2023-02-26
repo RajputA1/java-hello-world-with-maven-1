@@ -20,6 +20,16 @@ stages{
                sh 'mvn clean install'
             }
             }
+	     stages {
+        stage('Check SSH connection') {
+            steps {
+                echo 'Testing SSH connection...'
+                sshagent(['o-media-2']) {
+                    sh "ssh rajputamruta9914@gcp-dev 'echo Connected'"
+                }
+            }
+        }
+ }
             
 	      stage('ssh git pull on demo-app-server') {
   		steps{
@@ -28,6 +38,7 @@ stages{
      	 sh "ssh rajputamruta9914@${params.gcp-dev} 'nohup java -jar /home/rajputamruta9914/amruta/deploy-job-arti/target/*.jar > /mnt/my-artifacts 2>&1 &'"
     }
   }
+  
 }
 
 		 
