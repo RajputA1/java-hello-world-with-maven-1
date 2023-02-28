@@ -35,7 +35,7 @@ stage('Push to GCS') {
             steps {
                 withCredentials([gcpServiceAccount(credentialsId: "${GCS_CREDENTIALS_ID}", jsonKeyVariable: 'GCP_JSON_KEY')]) {
                     sh "echo '${GCP_JSON_KEY}' > ${env.HOME}/gcp-key.json"
-                    sh "gsutil -o 'GSUtil:parallel_thread_count=1' -o 'GSUtil:parallel_process_count=1' cp path/to/artifact.zip gs://${GCS_BUCKET}/jenkins/my-job/artifact.zip"
+                    sh "gsutil -o 'GSUtil:parallel_thread_count=1' -o 'GSUtil:parallel_process_count=1' cp /var/lib/jenkins/workspace/storage-upload-arti/target/*/.jar gs://${GCS_BUCKET}/jenkins/my-job/artifact.zip"
                 }
             }
         }
